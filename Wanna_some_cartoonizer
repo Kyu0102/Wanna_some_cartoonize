@@ -1,0 +1,47 @@
+import cv2 as cv
+import numpy as np
+
+if __name__ == '__main__':
+    
+    edge_threshold = 0.09
+    
+    while True:
+        #load input image
+        img = cv.imread('C:/Users/90531/lena512.png')
+        assert img is not None, 'Cannot read the given images.'
+        
+        #make input gray-scale
+        img_gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+        
+        #extract edge by using Sobel filter
+        dx   = cv.Sobel(img_gray, cv.CV_64F, 1, 0) / 1024
+        dy   = cv.Sobel(img_gray, cv.CV_64F, 0, 1) / 1024
+        mag  = np.sqrt(dx*dx + dy*dy) / np.sqrt(2)           
+        edge = mag > edge_threshold 
+        edge_bgr = cv.cvtColor((edge * 255).astype(np.uint8), cv.COLOR_GRAY2BGR)
+        edge_bgr = ~edge_bgr
+        
+        #extract edge with Gradient filter
+        img_edge2 = cv.morphologyEx(img_gray, cv.MORPH_GRADIENT, np.ones((3, 3), dtype=np.uint8), iterations=1)
+        img_edge2 = ~img_edge2
+        img_edge2 = cv.cvtColor(img_edge2, cv.COLOR_GRAY2BGR)
+        
+        #Combine edge_grad with input
+        img_intme = cv.bitwise_and(img, img_edge2)
+        
+        #Blur the image
+        img_blur = cv.bilateralFilter(img_intme, 13, 150, 150)
+        
+        #Combine the blurred image with edge_Sobel
+        cartoon = cv.bitwise_and(img_blur, edge_bgr)
+        
+        #Compare original image with cartoonized image
+        merge = np.hstack((img, cartoon))
+        
+        cv.imshow('Cartoon', merge)
+        
+        key = cv.waitKey()
+        if key == 27: # ESC
+            break
+
+    cv.destroyAllWindows()
