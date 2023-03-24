@@ -6,11 +6,13 @@ You can check the code below.
 
 ▲ ChatGPT's code for cartoonizing
 
+
 And then,
 I have tried to surpass code made by ChatGPT.
-Totally, I made code for cartoonizing image. but I wonder if this code is better or not. 
+Totally, I made code for cartoonizing image.
+but I wonder if this code is better or not. 
 
-Anyway, let's dig in code description.
+Anyway, let's dig in code that I made description.
 
 [Code flow]
 1. load input image
