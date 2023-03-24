@@ -3,6 +3,7 @@
 My ChatGPT had given me code for cartoonizing.
 You can check the code below.
 ![image](https://user-images.githubusercontent.com/128031528/227484652-4a32f893-e0aa-4fa1-a511-91a21e1c8718.png)
+
 ▲ ChatGPT's code for cartoonizing
 
 And then,
